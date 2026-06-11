@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تشكن فريش | Chicken Fresh</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --cf-red: #E63946;
+      --cf-yellow: #FFB800;
+      --cf-dark: #1a1a1a;
+      --cf-light: #f9f9f9;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: var(--cf-light); color: var(--cf-dark); direction: rtl; }
+    body.en { direction: ltr; }
+
+    /* LANG BUTTON */
+    .lang-btn {
+      position: fixed; top: 16px; left: 16px; z-index: 999;
+      background: white; border: 1.5px solid var(--cf-red);
+      color: var(--cf-red); padding: 7px 16px; border-radius: 20px;
+      cursor: pointer; font-size: 13px; font-weight: 600;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.12);
+      transition: all 0.2s;
+    }
+    .lang-btn:hover { background: var(--cf-red); color: white; }
+
+    /* NAV */
+    nav {
+      background: white;
+      border-bottom: 0.5px solid #e0e0e0;
+      padding: 14px 32px;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 12px;
+      position: sticky; top: 0; z-index: 100;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    }
+    .nav-brand { font-size: 20px; font-weight: 700; color: var(--cf-dark); }
+    .nav-brand span { color: var(--cf-red); }
+    .nav-links { display: flex; gap: 24px; list-style: none; flex-wrap: wrap; }
+    .nav-links a {
+      text-decoration: none; color: #555; font-size: 14px; font-weight: 500;
+      padding: 4px 0; border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+    .nav-links a:hover { color: var(--cf-red); border-bottom-color: var(--cf-red); }
+
+    /* HERO */
+    .hero {
+      background: var(--cf-dark);
+      padding: 80px 24px 70px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: repeating-linear-gradient(45deg, transparent, transparent 50px, rgba(255,184,0,0.03) 50px, rgba(255,184,0,0.03) 100px);
+    }
+    .logo-circle {
+      width: 110px; height: 110px; border-radius: 50%;
+      background: var(--cf-yellow);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 24px; font-size: 52px;
+      border: 4px solid var(--cf-red);
+      position: relative; z-index: 1;
+    }
+    .hero h1 { font-size: 42px; font-weight: 700; color: white; position: relative; z-index: 1; }
+    .hero h1 span { color: var(--cf-yellow); }
+    .hero p { color: #aaa; font-size: 17px; margin-top: 12px; position: relative; z-index: 1; }
+    .hero-btns {
+      display: flex; gap: 14px; justify-content: center;
+      margin-top: 32px; flex-wrap: wrap; position: relative; z-index: 1;
+    }
+    .btn-primary {
+      background: var(--cf-red); color: white;
+      border: none; padding: 13px 30px; border-radius: 25px;
+      font-size: 15px; cursor: pointer; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-primary:hover { background: #c62d39; }
+    .btn-outline {
+      background: transparent; color: white;
+      border: 1.5px solid white; padding: 13px 30px; border-radius: 25px;
+      font-size: 15px; cursor: pointer; font-weight: 500;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+      transition: background 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* SECTIONS */
+    .section { padding: 60px 24px; max-width: 900px; margin: 0 auto; }
+    .section-title {
+      font-size: 28px; font-weight: 700; text-align: center;
+      margin-bottom: 10px; color: var(--cf-dark);
+    }
+    .section-title span { color: var(--cf-red); }
+    .section-line {
+      width: 52px; height: 3px; background: var(--cf-yellow);
+      margin: 0 auto 36px; border-radius: 2px;
+    }
+
+    /* MENU */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+    }
+    .menu-card {
+      background: white; border-radius: 12px;
+      border: 0.5px solid #e0e0e0;
+      padding: 18px 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: transform 0.15s, border-color 0.15s;
+    }
+    .menu-card:hover { transform: translateY(-3px); border-color: var(--cf-yellow); }
+    .menu-icon { font-size: 24px; margin-bottom: 5px; }
+    .menu-name { font-size: 16px; font-weight: 500; color: var(--cf-dark); }
+    .menu-price { font-size: 20px; font-weight: 700; color: var(--cf-red); }
+    .menu-price-label { font-size: 12px; color: #888; text-align: center; }
+    .menu-note {
+      text-align: center; margin-top: 22px;
+      background: #fff8e6; border: 1px solid var(--cf-yellow);
+      padding: 13px 22px; border-radius: 10px;
+      font-size: 14px; color: #7a5c00;
+    }
+
+    /* FEATURES */
+    .features-bg { background: #f0f0f0; padding: 60px 24px; }
+    .features-inner { max-width: 900px; margin: 0 auto; }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+    }
+    .feat-card {
+      background: white; border-radius: 12px;
+      border: 0.5px solid #e0e0e0;
+      padding: 28px 18px; text-align: center;
+    }
+    .feat-icon { font-size: 34px; color: var(--cf-red); margin-bottom: 14px; display: block; }
+    .feat-title { font-size: 15px; font-weight: 600; }
+    .feat-desc { font-size: 13px; color: #777; margin-top: 6px; line-height: 1.5; }
+
+    /* ORDER */
+    .order-section { background: var(--cf-red); padding: 60px 24px; text-align: center; }
+    .order-section h2 { color: white; font-size: 28px; font-weight: 700; margin-bottom: 10px; }
+    .order-section p { color: rgba(255,255,255,0.85); font-size: 15px; margin-bottom: 32px; }
+    .order-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-wa {
+      background: #25D366; color: white;
+      border: none; padding: 14px 32px; border-radius: 25px;
+      font-size: 16px; cursor: pointer; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-wa:hover { background: #1da851; }
+    .btn-call {
+      background: white; color: var(--cf-red);
+      border: none; padding: 14px 32px; border-radius: 25px;
+      font-size: 16px; cursor: pointer; font-weight: 700;
+      display: inline-flex; align-items: center; gap: 10px;
+      text-decoration: none; transition: background 0.2s;
+    }
+    .btn-call:hover { background: #f5f5f5; }
+
+    /* CONTACT */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+    .contact-card {
+      background: white; border-radius: 12px;
+      border: 0.5px solid #e0e0e0;
+      padding: 24px 18px; text-align: center;
+    }
+    .contact-icon { font-size: 30px; color: var(--cf-red); margin-bottom: 12px; display: block; }
+    .contact-label { font-size: 13px; color: #888; margin-bottom: 5px; }
+    .contact-value { font-size: 15px; font-weight: 600; }
+    .contact-value a { color: var(--cf-red); text-decoration: none; }
+
+    /* MAP */
+    .map-box {
+      margin-top: 28px; border-radius: 12px; overflow: hidden;
+      border: 0.5px solid #e0e0e0;
+      background: #eef2f7;
+      height: 220px; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+    }
+    .map-box i { font-size: 40px; color: var(--cf-red); }
+    .map-box p { font-size: 15px; color: #555; }
+    .map-box a { color: var(--cf-red); font-size: 14px; text-decoration: underline; }
+
+    /* FOOTER */
+    footer {
+      background: var(--cf-dark); color: #888;
+      text-align: center; padding: 26px 24px;
+      font-size: 13px;
+    }
+    footer span { color: var(--cf-yellow); }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 30px; }
+      nav { padding: 12px 16px; }
+      .section { padding: 40px 16px; }
+    }
+  </style>
+</head>
+<body id="body">
+
+  <button class="lang-btn" onclick="toggleLang()" id="langBtn">English</button>
+
+  <nav>
+    <div class="nav-brand">تشكن <span>فريش</span></div>
+    <ul class="nav-links">
+      <li><a href="#menu" id="nav-menu">المنيو</a></li>
+      <li><a href="#order" id="nav-order">اطلب الآن</a></li>
+      <li><a href="#contact" id="nav-contact">تواصل معنا</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero">
+    <div class="logo-circle">🐓</div>
+    <h1 id="hero-title">تشكن <span>فريش</span></h1>
+    <p id="hero-sub">دجاج طازج — جودة عالية — أسعار منافسة</p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#order">🛒 <span id="hero-btn1">اطلب الآن</span></a>
+      <a class="btn-outline" href="#menu">📋 <span id="hero-btn2">شاهد المنيو</span></a>
+    </div>
+  </div>
+
+  <div class="section" id="menu">
+    <h2 class="section-title"><span id="menu-title">عروض</span> تشكن فريش</h2>
+    <div class="section-line"></div>
+    <div class="menu-grid" id="menuGrid"></div>
+    <div class="menu-note" id="menuNote">
+      ⭐ متاح جميع التوابل والبهارات بخلطات سرية وأسعار منافسة
+    </div>
+  </div>
+
+  <div class="features-bg">
+    <div class="features-inner">
+      <h2 class="section-title"><span id="feat-title">ليه</span> تشكن فريش؟</h2>
+      <div class="section-line"></div>
+      <div class="features-grid">
+        <div class="feat-card">
+          <i class="ti ti-leaf feat-icon" aria-hidden="true"></i>
+          <div class="feat-title" id="f1">طازج دايماً</div>
+          <div class="feat-desc" id="f1d">دجاج طازج يومياً بأعلى معايير الجودة</div>
+        </div>
+        <div class="feat-card">
+          <i class="ti ti-currency-pound feat-icon" aria-hidden="true"></i>
+          <div class="feat-title" id="f2">أسعار منافسة</div>
+          <div class="feat-desc" id="f2d">أفضل قيمة مقابل المال في المنطقة</div>
+        </div>
+        <div class="feat-card">
+          <i class="ti ti-flask feat-icon" aria-hidden="true"></i>
+          <div class="feat-title" id="f3">خلطات سرية</div>
+          <div class="feat-desc" id="f3d">توابل وبهارات بوصفات خاصة لا تُقاوم</div>
+        </div>
+        <div class="feat-card">
+          <i class="ti ti-truck-delivery feat-icon" aria-hidden="true"></i>
+          <div class="feat-title" id="f4">توصيل سريع</div>
+          <div class="feat-desc" id="f4d">خدمة توصيل لباب بيتك</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="order-section" id="order">
+    <h2 id="order-title">جاهز تطلب؟</h2>
+    <p id="order-sub">تواصل معنا الآن عبر واتساب أو اتصل بنا مباشرة</p>
+    <div class="order-btns">
+      <a class="btn-wa" href="https://wa.me/201011900221?text=مرحباً%20أريد%20الطلب%20من%20تشكن%20فريش" target="_blank">
+        <i class="ti ti-brand-whatsapp" aria-hidden="true"></i>
+        <span id="wa-btn">اطلب عبر واتساب</span>
+      </a>
+      <a class="btn-call" href="tel:+201011900221">
+        <i class="ti ti-phone" aria-hidden="true"></i>
+        <span>01011900221</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section" id="contact">
+    <h2 class="section-title" id="contact-title">تواصل <span>معنا</span></h2>
+    <div class="section-line"></div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <i class="ti ti-phone contact-icon" aria-hidden="true"></i>
+        <div class="contact-label" id="cl-phone">التليفون</div>
+        <div class="contact-value"><a href="tel:+201011900221">01011900221</a></div>
+      </div>
+      <div class="contact-card">
+        <i class="ti ti-brand-whatsapp contact-icon" aria-hidden="true"></i>
+        <div class="contact-label" id="cl-wa">واتساب</div>
+        <div class="contact-value"><a href="https://wa.me/201011900221" target="_blank">01011900221</a></div>
+      </div>
+      <div class="contact-card">
+        <i class="ti ti-map-pin contact-icon" aria-hidden="true"></i>
+        <div class="contact-label" id="cl-addr">العنوان</div>
+        <div class="contact-value" id="cl-addr-val">مدينة نصر — 60 هشام لبيب</div>
+      </div>
+    </div>
+    <div class="map-box">
+      <i class="ti ti-map-pin" aria-hidden="true"></i>
+      <p id="map-text">مدينة نصر — شارع 60 هشام لبيب</p>
+      <a href="https://maps.google.com/?q=مدينة+نصر+60+هشام+لبيب" target="_blank" id="map-link">افتح في خرائط جوجل ↗</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 <span>Chicken Fresh — تشكن فريش</span> &nbsp;|&nbsp; جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    const menu = [
+      { ar: "فراخ كامل",           en: "Whole Chicken",           price: 110, icon: "🐔" },
+      { ar: "جناح فراخ",           en: "Chicken Wings",           price: 50,  icon: "🍗" },
+      { ar: "دبوس فراخ",           en: "Chicken Drumstick",       price: 120, icon: "🍖" },
+      { ar: "شيش",                 en: "Shish Kebab",             price: 170, icon: "🥩" },
+      { ar: "ستيك بانيه",          en: "Breaded Steak",           price: 200, icon: "🥩" },
+      { ar: "صدر فراخ",            en: "Chicken Breast",          price: 200, icon: "🍗" },
+      { ar: "كبدة فراخ",           en: "Chicken Liver",           price: 120, icon: "🫀" },
+      { ar: "شاورما (صدر)",        en: "Shawarma (Breast)",       price: 210, icon: "🌯" },
+      { ar: "ورك فراخ بظهر",       en: "Chicken Leg (with back)", price: 110, icon: "🍖" },
+      { ar: "ورك فراخ بدون ظهر",   en: "Chicken Leg (no back)",   price: 120, icon: "🍖" },
+    ];
+
+    let isEn = false;
+
+    function renderMenu() {
+      const grid = document.getElementById('menuGrid');
+      grid.innerHTML = menu.map(item => `
+        <div class="menu-card">
+          <div>
+            <div class="menu-icon">${item.icon}</div>
+            <div class="menu-name">${isEn ? item.en : item.ar}</div>
+          </div>
+          <div style="text-align:center">
+            <div class="menu-price">${item.price}</div>
+            <div class="menu-price-label">${isEn ? 'EGP' : 'جنيه'}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleLang() {
+      isEn = !isEn;
+      const body = document.getElementById('body');
+      const btn  = document.getElementById('langBtn');
+
+      if (isEn) {
+        body.classList.add('en');
+        document.documentElement.setAttribute('lang','en');
+        document.documentElement.setAttribute('dir','ltr');
+        btn.textContent = 'العربية';
+        document.getElementById('hero-title').innerHTML = 'Chicken <span>Fresh</span>';
+        document.getElementById('hero-sub').textContent = 'Fresh chicken — Premium quality — Competitive prices';
+        document.getElementById('hero-btn1').textContent = 'Order Now';
+        document.getElementById('hero-btn2').textContent = 'View Menu';
+        document.getElementById('nav-menu').textContent = 'Menu';
+        document.getElementById('nav-order').textContent = 'Order Now';
+        document.getElementById('nav-contact').textContent = 'Contact';
+        document.getElementById('menu-title').textContent = 'Our Menu';
+        document.getElementById('menuNote').textContent = '⭐ All spices & seasonings available — secret blends at competitive prices';
+        document.getElementById('feat-title').textContent = 'Why';
+        document.getElementById('f1').textContent = 'Always Fresh';
+        document.getElementById('f1d').textContent = 'Fresh chicken daily with the highest quality standards';
+        document.getElementById('f2').textContent = 'Competitive Prices';
+        document.getElementById('f2d').textContent = 'Best value for money in the area';
+        document.getElementById('f3').textContent = 'Secret Blends';
+        document.getElementById('f3d').textContent = 'Special spice recipes that are irresistible';
+        document.getElementById('f4').textContent = 'Fast Delivery';
+        document.getElementById('f4d').textContent = 'Delivery service straight to your door';
+        document.getElementById('order-title').textContent = 'Ready to Order?';
+        document.getElementById('order-sub').textContent = 'Contact us via WhatsApp or call us directly';
+        document.getElementById('wa-btn').textContent = 'Order on WhatsApp';
+        document.getElementById('contact-title').innerHTML = 'Contact <span>Us</span>';
+        document.getElementById('cl-phone').textContent = 'Phone';
+        document.getElementById('cl-wa').textContent = 'WhatsApp';
+        document.getElementById('cl-addr').textContent = 'Address';
+        document.getElementById('cl-addr-val').textContent = 'Nasr City, 60 Hisham Labib St.';
+        document.getElementById('map-text').textContent = 'Nasr City — 60 Hisham Labib Street';
+        document.getElementById('map-link').textContent = 'Open in Google Maps ↗';
+      } else {
+        body.classList.remove('en');
+        document.documentElement.setAttribute('lang','ar');
+        document.documentElement.setAttribute('dir','rtl');
+        btn.textContent = 'English';
+        document.getElementById('hero-title').innerHTML = 'تشكن <span>فريش</span>';
+        document.getElementById('hero-sub').textContent = 'دجاج طازج — جودة عالية — أسعار منافسة';
+        document.getElementById('hero-btn1').textContent = 'اطلب الآن';
+        document.getElementById('hero-btn2').textContent = 'شاهد المنيو';
+        document.getElementById('nav-menu').textContent = 'المنيو';
+        document.getElementById('nav-order').textContent = 'اطلب الآن';
+        document.getElementById('nav-contact').textContent = 'تواصل معنا';
+        document.getElementById('menu-title').textContent = 'عروض';
+        document.getElementById('menuNote').textContent = '⭐ متاح جميع التوابل والبهارات بخلطات سرية وأسعار منافسة';
+        document.getElementById('feat-title').textContent = 'ليه';
+        document.getElementById('f1').textContent = 'طازج دايماً';
+        document.getElementById('f1d').textContent = 'دجاج طازج يومياً بأعلى معايير الجودة';
+        document.getElementById('f2').textContent = 'أسعار منافسة';
+        document.getElementById('f2d').textContent = 'أفضل قيمة مقابل المال في المنطقة';
+        document.getElementById('f3').textContent = 'خلطات سرية';
+        document.getElementById('f3d').textContent = 'توابل وبهارات بوصفات خاصة لا تُقاوم';
+        document.getElementById('f4').textContent = 'توصيل سريع';
+        document.getElementById('f4d').textContent = 'خدمة توصيل لباب بيتك';
+        document.getElementById('order-title').textContent = 'جاهز تطلب؟';
+        document.getElementById('order-sub').textContent = 'تواصل معنا الآن عبر واتساب أو اتصل بنا مباشرة';
+        document.getElementById('wa-btn').textContent = 'اطلب عبر واتساب';
+        document.getElementById('contact-title').innerHTML = 'تواصل <span>معنا</span>';
+        document.getElementById('cl-phone').textContent = 'التليفون';
+        document.getElementById('cl-wa').textContent = 'واتساب';
+        document.getElementById('cl-addr').textContent = 'العنوان';
+        document.getElementById('cl-addr-val').textContent = 'مدينة نصر — 60 هشام لبيب';
+        document.getElementById('map-text').textContent = 'مدينة نصر — شارع 60 هشام لبيب';
+        document.getElementById('map-link').textContent = 'افتح في خرائط جوجل ↗';
+      }
+      renderMenu();
+    }
+
+    renderMenu();
+  </script>
+</body>
+</html>
